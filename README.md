@@ -1,4 +1,4 @@
-# AuctionWebsite
+# AuctionWebsite using Flask
 pip install flask <br>
 pip install flask-sqlalchemy <br>
 pip install flask-wtf <br>
