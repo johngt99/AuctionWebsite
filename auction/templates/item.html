@@ -1,0 +1,54 @@
+{% extends 'base.html' %} {% block title %} {{item.name}} {% endblock %} {% block
+content %}
+
+<section id="services" class="services section-bg" style="padding-top: 2%"">
+    <div class="container" style="border-width: 1px; background-color: #343A40; padding-top: 15px; padding-bottom: 20px; border-style: outset; border-width: 2px;">
+        <div class="row row-sm">
+            <div class="col-md-6 _boxzoom" style="text-align: center; margin: auto">
+                <div class="_product-images">                    
+                    <img class="my_img" src="{{ url_for('static', filename='images/')}}{{item.image}}" width="350" height="350">                    
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="_product-detail-content">
+                    <h1>{{ item.name }}</h1>
+                    
+                    <div class="_p-price-box">
+                        <div class="p-list">
+                            <span class="price">{{ item.show_date }}</span>
+                            <p><p></p></p>
+                        </div>
+                        <div class="description">
+                            <strong> Description: </strong><br>
+                            {{ item.description }}
+                        </div>
+                        <div class="seller-info">
+                            <p><p></p></p>
+                            <strong>Seller info</strong><br>
+                            {{ user.email_address }}<br>
+                            {{ user.phone_number }}
+                        </div>
+                        <p></p>                      
+                        <span>Current Bid: <strong style="color: lawngreen;">£{{ item.curr_bid }}</strong> </span><p></p>
+                        
+                        {% if item.seller == current_user.username %}
+                            <button class="btn-theme btn btn-dark" disabled>You are selling this item</button>
+                        {% elif item.owner == current_user.id %}
+                            <button class="btn-theme btn btn-dark" disabled>You own this item</button>
+                        {% elif item.highest_bidder_id == current_user.id %}
+                            <button class="btn-theme btn btn-dark" disabled>You have the highest bid</button>                        
+                        {% else %}
+                            <a href="{{ url_for('bid_page', item_id=item.id) }}">
+                            <button class="btn-theme btn btn-warning">Bid for this Item</button>    
+                            </a>                               
+                        {% endif %}
+                        
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

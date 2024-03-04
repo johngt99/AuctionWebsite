@@ -1,0 +1,77 @@
+{% extends 'base.html' %} {% block title %} My Items {% endblock %} {% block
+content %}
+
+<body class="text-center">
+    <div class="container" style="padding-left: 5%; padding-right: 5%; padding-top: 2%">
+        <h1 class="h3 mb-3 font-weight-normal">My Auctions</h1>
+        <br />
+
+
+
+        <table class="table table-hover table-dark">
+            <thead>
+                <tr>
+                    <!-- Your Columns HERE -->
+                    <th scope="col">Name</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Post Date</th>
+                    <th scope="col">Current Bid</th>
+                    <th scope="col">Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Your rows inside the table HERE: -->
+                {% for item in items %}
+                <tr>
+                    <td><p></p>{{ item.name }}</td>
+                    <td><img class="mb-4" src="static/images/{{item.image}}" width="100" height="100" /></td>
+                    <td><p></p>{{ item.show_date }}</td>
+                    <td>
+                        {% if item.item_sold == False %}
+                            {% if item.curr_bid == item.start_price %}
+                                <p></p>
+                                <button class="btn-theme btn btn-outline-secondary" disabled>No bids yet</button>
+                            {% else %}
+                                <p></p>£{{ item.curr_bid }}
+                            {% endif %}
+                        {% else %}
+                            {% if item.curr_bid != item.start_price %}
+                                <p></p>
+                                <span style="color: lawngreen; font-weight: bold">£{{ item.curr_bid }}</span>
+                            {% else %}
+                                <p></p>
+                                <button class="btn-theme btn btn-outline-danger" disabled>No one bid for this item</button>                                
+                            {% endif %}
+                        {% endif %}
+                        
+                    </td>
+                    <td>   
+                        
+                        {% if item.item_sold == False %}
+                            <p><p></p>
+                            <a href="{{ url_for('sold', item_id=item.id) }}">
+                                <button type="button" class="btn btn-lg btn-danger">
+                                   Sell
+                                </button>
+                            </a> 
+                        {% else %}
+                            <p></p>
+                            <button type="button" class="btn btn-lg btn-danger" disabled>
+                                   Sold
+                            </button>
+                        {% endif %}
+
+                        
+
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+
+
+    </div>
+</body>
+{% endblock %}

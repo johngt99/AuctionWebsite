@@ -1,0 +1,44 @@
+{% extends 'base.html' %} {% block title %} Messages {% endblock %} {% block
+content %}
+
+<body class="text-center">
+    <div class="container" style="padding-left: 5%; padding-right: 5%; padding-top: 2%">
+        <h1 class="h3 mb-3 font-weight-normal">Outbided Auctions</h1>
+        <br />
+
+
+
+        <table class="table table-hover table-dark">
+            <thead>
+                <tr>
+                    <!-- Your Columns HERE -->
+                    <th scope="col">Name</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Summary</th>
+                    <th scope="col">Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Your rows inside the table HERE: -->
+                {% for item in items %}
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td><img class="mb-4" src="static/images/{{item.image}}" width="100" height="100" /></td>
+                    <td>Someone placed a bid higher than yours. <br> Now the current bid is £{{ item.curr_bid }}</td>
+                    <td>
+                        <a href="{{ url_for('bid_page', item_id=item.id) }}">
+                            <button class="btn-theme btn btn-warning">Bid Again</button>    
+                        </a>
+                        <p></p>                                         
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+
+
+    </div>
+</body>
+{% endblock %}
